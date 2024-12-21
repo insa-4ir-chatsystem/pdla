@@ -23,7 +23,8 @@ public class DBManager {
     	        m.id AS MissionID,
     	        m.mdate AS Date,
     	        m.nature AS Nature,
-    	        m.mtime AS Time
+    	        m.mtime AS Time,
+    	        m.nom AS Name
     	    FROM 
     	        Missions m
     	    JOIN 
@@ -36,7 +37,8 @@ public class DBManager {
     	        m.id AS MissionID,
     	        m.mdate AS Date,
     	        m.nature AS Nature,
-    	        m.mtime AS Time
+    	        m.mtime AS Time,
+    	        m.nom AS Name
     	    FROM 
     	        Missions m
     	    WHERE 
@@ -148,7 +150,7 @@ public class DBManager {
 	
 	public void printMissionById(String missionId) throws SQLException {
 	    // Requête SQL pour afficher une mission avec un ID spécifique
-	    String sql = "SELECT id, mdate, nature, mtime FROM Missions WHERE id = ?";
+	    String sql = "SELECT nom, id, mdate, nature, mtime FROM Missions WHERE id = ?";
 	    printQuery(sql, missionId);
 	}
 	// normalement non utilisée
@@ -400,23 +402,23 @@ public class DBManager {
     }
     
     public boolean isEmailExist(String email) throws SQLException {
-        // Requête SQL pour vérifier l'existence d'une mission
-        String sql = "SELECT COUNT(*) FROM Users WHERE email = ?";
+    	String sql = "SELECT COUNT(*) FROM Users WHERE email = ?";
 
-        try (
-            PreparedStatement pstmt = connection.prepareStatement(sql)
-        ) {
-            pstmt.setString(1, email);
+    	try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+    	    if (email == null || email.isEmpty()) {
+    	        throw new IllegalArgumentException("L'email ne peut pas être null ou vide");
+    	    }
+    	    pstmt.setString(1, email);
 
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next() && rs.getInt(1) > 0) {
-                    return true;
-                }
-            }
-        } catch (SQLException e) {
-            System.err.println("¤ Erreur lors de la vérification de l'unicité de l'email : " + e.getMessage());
-            throw e;
-        }
+    	    try (ResultSet rs = pstmt.executeQuery()) {
+    	        if (rs.next() && rs.getInt(1) > 0) {
+    	            return true;
+    	        }
+    	    }
+    	} catch (SQLException e) {
+    	    System.err.println("¤ Erreur lors de la vérification de l'unicité de l'email : " + e.getMessage());
+    	    throw new RuntimeException("Erreur SQL lors de la vérification de l'email", e);
+    	}
         return false;
     }
     

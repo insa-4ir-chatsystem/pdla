@@ -23,7 +23,7 @@ public class Main {
             DBM.Connection(); 
         	try {
     			DBM.removeTable("Missions") ;
-    			//DBM.removeTable("Users") ;
+    			DBM.removeTable("Users") ;
     		} catch (SQLException e) {
     			System.out.println("Impossible de supprimer les tables") ;
     			e.printStackTrace();

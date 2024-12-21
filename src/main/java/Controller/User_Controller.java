@@ -75,7 +75,7 @@ public class User_Controller {
 				System.out.println("Erreur : l'adresse email ne peut pas être vide.");
 			} else {
 				try {
-					if (DBM.isEmailExist("email")) {
+					if (DBM.isEmailExist(email)) {
 						System.out.println("Erreur : l'adresse email est déjà utilisée. Veuillez en choisir une autre");
 					} else emailValid = true;
 				} catch (SQLException e) {
@@ -83,7 +83,7 @@ public class User_Controller {
 					e.printStackTrace();
 				}
 			}
-		} while (email.isEmpty() && !emailValid);
+		} while (email.isEmpty() || !emailValid);
 
 		// Saisie et validation du mot de passe
 		String pw;
@@ -279,7 +279,7 @@ public class User_Controller {
 				continuerMission = true ;
 				while (continuerMission) {
 					
-					System.out.println("Page des missions :");
+					System.out.println("\n\nPage des missions :");
 	
 					boolean FoundMission = false;
 					try {

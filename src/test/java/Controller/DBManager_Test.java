@@ -217,9 +217,6 @@ public class DBManager_Test {
                 DBM.removeTable("Users");
                 
                 DBM.addUser(reclamant);
-               // DBM.addUser(benevole);
-               // DBM.addUser(valideur);
-               // DBM.addMission(mission);
 
                 boolean exists = DBM.isEmailExist(reclamant.getEmail());
                 assertTrue("L'email devrait exister dans la base de données", exists);
