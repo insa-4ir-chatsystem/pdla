@@ -145,7 +145,7 @@ public class User_Controller {
 
 			réponse = scanner.nextLine();
 
-			if (réponse.equals("inscription")) {
+			if (réponse.equals("inscription")) { // INSCRIPTION
 				U.setNull();
 				U = signIn(DBM);
 
@@ -169,7 +169,7 @@ public class User_Controller {
 						System.out.println(
 								"Réponse non valide. Veuillez répondre \u001B[1myes\u001B[0m ou \u001B[1mno\u001B[0m");
 				}
-			} else if (réponse.equals("connexion")) {
+			} else if (réponse.equals("connexion")) { // CONNEXION
 				U.setNull();
 				String email;
 				String pw;
@@ -206,7 +206,7 @@ public class User_Controller {
 					} else
 						System.out.println("Adresse mail ou commande inconnue. Veuillez rééssayer");
 				}
-			} else if (réponse.equals("quitter")) {
+			} else if (réponse.equals("quitter")) { // QUITTER L'APPLICATION
 				réponseValide = false;
 				while (!réponseValide) {
 					System.out.println(
@@ -231,12 +231,12 @@ public class User_Controller {
 			} else
 				System.out.println("Commande inconnue. Veuillez réessayer.");
 			while (continuerMenu) {
-				if (U.getRole().equals("benevole")) {
+				if (U.getRole().equals("benevole")) { // MENU BENEVOLE
 					System.out.println();
 					System.out.println();
 					handleBenevoleMenu(DBM);
 					continuerMenu = false;
-				} else if (U.getRole().equals("reclamant")) {
+				} else if (U.getRole().equals("reclamant")) { // MENU RECLAMANT
 					System.out.println();
 					System.out.println();
 					handleReclamantMenu(DBM);
@@ -286,7 +286,7 @@ public class User_Controller {
 
 					boolean FoundMission = false;
 					try {
-						FoundMission = DBM.printQuery(DBM.missions_attente_reclamant, U.getID()); // aucune dire qu'on
+						FoundMission = DBM.printQuery(DBM.missions_attente_reclamant, U.getID()); // aucune > dire qu'on
 																									// en a
 																									// pas trouvé
 					} catch (SQLException e) {
@@ -399,9 +399,7 @@ public class User_Controller {
 					} else
 						System.out.println("Commande inconnue. Veuillez rééssayer");
 				}
-			} else if (commande.equals("disconnect"))
-
-			{
+			} else if (commande.equals("disconnect")) {
 				boolean réponseValide = false;
 				while (!réponseValide) {
 					System.out.println("Souhaitez-vous vous déconnecter ? (yes/no)");
@@ -436,7 +434,7 @@ public class User_Controller {
 		}
 	}
 
-	// MENU BENEVOLE > à retester
+	// MENU BENEVOLE 
 	public void handleBenevoleMenu(DBManager DBM) {
 		boolean continuerMenu = true;
 		boolean missionChoisie = false;
@@ -530,7 +528,7 @@ public class User_Controller {
 
 				else if (commande.equals("proposer")) {
 					System.out.println("Vous avez choisi de proposer une aide. (pas encore implémentée)");
-					// ...
+					// ... pas implémenté
 				}
 			} else if (commande.equals("disconnect")) {
 

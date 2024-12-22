@@ -21,6 +21,7 @@ public class Main {
         try {
             System.out.println("Connexion à la base de données...");
             DBM.Connection(); 
+            // pour réinitialiser la base de donnée :
         	/*try {
     			DBM.removeTable("Missions") ;
     			DBM.removeTable("Users") ;

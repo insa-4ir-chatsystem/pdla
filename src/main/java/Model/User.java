@@ -79,6 +79,7 @@ public class User {
 		return this.email ;
 	}
 	
+	// pour un utilisateur "vierge"
 	public void setNull() {
 		this.FirstName = "";
 		this.LastName = "" ;
