@@ -20,11 +20,11 @@ public class DBManager {
     String afficher_tout = "SELECT * FROM " ;
     String missions_attente = """
     	    SELECT 
+    	        m.nom AS Name,
     	        m.id AS MissionID,
     	        m.mdate AS Date,
     	        m.nature AS Nature,
-    	        m.mtime AS Time,
-    	        m.nom AS Name
+    	        m.mtime AS Time
     	    FROM 
     	        Missions m
     	    JOIN 
@@ -35,10 +35,10 @@ public class DBManager {
     String missions_attente_reclamant = """
     	    SELECT 
     	        m.id AS MissionID,
+    	        m.nom AS Name,
     	        m.mdate AS Date,
     	        m.nature AS Nature,
-    	        m.mtime AS Time,
-    	        m.nom AS Name
+    	        m.mtime AS Time
     	    FROM 
     	        Missions m
     	    WHERE 
@@ -150,7 +150,7 @@ public class DBManager {
 	
 	public void printMissionById(String missionId) throws SQLException {
 	    // Requête SQL pour afficher une mission avec un ID spécifique
-	    String sql = "SELECT nom, id, mdate, nature, mtime FROM Missions WHERE id = ?";
+	    String sql = "SELECT nom, mdate, nature, mtime FROM Missions WHERE id = ?";
 	    printQuery(sql, missionId);
 	}
 	// normalement non utilisée

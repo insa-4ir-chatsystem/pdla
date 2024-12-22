@@ -77,7 +77,8 @@ public class User_Controller {
 				try {
 					if (DBM.isEmailExist(email)) {
 						System.out.println("Erreur : l'adresse email est déjà utilisée. Veuillez en choisir une autre");
-					} else emailValid = true;
+					} else
+						emailValid = true;
 				} catch (SQLException e) {
 					System.out.println("Impossible de vérifier l'adresse mail");
 					e.printStackTrace();
@@ -96,12 +97,12 @@ public class User_Controller {
 		} while (pw.isEmpty());
 
 		System.out.println(
-				"> Souhaitez-vous vous inscrire en tant que bénévole, réclamant ou valideur ? (taper benevole, reclamant, valideur) : ");
+				"> Souhaitez-vous vous inscrire en tant que bénévole, réclamant ou valideur ? (taper \u001B[1mbenevole\u001B[0m, \u001B[1mreclamant\u001B[0m, \u001B[1mvalideur\u001B[0m) : ");
 		String role = scanner.nextLine().trim().toLowerCase();
 
 		while (!role.equals("benevole") && !role.equals("reclamant") && !role.equals("valideur")) {
 			System.out.println(
-					"Choix invalide. Tapez benevole pour bénévole, reclamant pour réclamant ou valideur pour valideur.");
+					"Choix invalide. Tapez \u001B[1mbenevole\u001B[0m pour bénévole, \u001B[1mreclamant\u001B[0m pour réclamant ou \u001B[1mbvalideur\u001B[0m pour valideur.");
 			role = scanner.nextLine().trim().toLowerCase();
 		}
 
@@ -138,16 +139,16 @@ public class User_Controller {
 			System.out.println(
 					"[MENU PRINCIPAL] Bienvenue dans \033[3mMon bénévole\033[0m, l'application de bénévolat spontané !");
 			System.out.println("Que souhaitez-vous faire ?");
-			System.out.println("> inscription (taper inscription)");
-			System.out.println("> connexion (taper connexion)");
-			System.out.println("> quitter l'application (taper quitter)");
+			System.out.println("> inscription (taper \u001B[1minscription\u001B[0m)");
+			System.out.println("> connexion (taper \u001B[1mconnexion\u001B[0m)");
+			System.out.println("> quitter l'application (taper \u001B[1mquitter\u001B[0m)");
 
 			réponse = scanner.nextLine();
 
 			if (réponse.equals("inscription")) {
 				U.setNull();
 				U = signIn(DBM);
-				
+
 				réponseValide = false;
 				while (!réponseValide) {
 					System.out.println("Souhaitez-vous poursuivre dans l'application ? (yes/no) ");
@@ -165,7 +166,8 @@ public class User_Controller {
 						System.out.println();
 
 					} else
-						System.out.println("Réponse non valide. Veuillez répondre yes ou no");
+						System.out.println(
+								"Réponse non valide. Veuillez répondre \u001B[1myes\u001B[0m ou \u001B[1mno\u001B[0m");
 				}
 			} else if (réponse.equals("connexion")) {
 				U.setNull();
@@ -174,7 +176,8 @@ public class User_Controller {
 
 				réponseValide = false;
 				while (!réponseValide) {
-					System.out.println("> Quel est votre adresse mail ? (taper menu pour revenir au menu principal)");
+					System.out.println(
+							"> Quel est votre adresse mail ? (taper \u001B[1mmenu\u001B[0m pour revenir au menu principal)");
 					email = scanner.nextLine();
 					U.setEmail(email);
 
@@ -207,7 +210,7 @@ public class User_Controller {
 				réponseValide = false;
 				while (!réponseValide) {
 					System.out.println(
-							"Etes-vous sûr de vouloir quiiter l'application ? (tapez menu pour revenir ou quitter pour quitter)");
+							"Etes-vous sûr de vouloir quitter l'application ? (tapez \u001B[1mmenu\u001B[0m pour revenir ou \u001B[1mquitter\u001B[0m pour quitter)");
 					réponse = scanner.nextLine();
 
 					if (réponse.equals("quitter")) {
@@ -241,7 +244,7 @@ public class User_Controller {
 
 				} else {
 					System.out.println("Menu non disponible pour cet utilisateur.");
-					continuerMenu  = false ;
+					continuerMenu = false;
 				}
 			}
 		}
@@ -268,49 +271,51 @@ public class User_Controller {
 				+ ", que souhaitez-vous faire ?");
 		while (continuerMenu) {
 			System.out.println("Vous pouvez  : ");
-			System.out.println("> consulter vos missions (taper consulter)");
-			System.out.println("> ou vous déconnecter (taper disconnect)");
+			System.out.println("> consulter vos missions (taper \u001B[1mconsulter\u001B[0m)");
+			System.out.println("> ou vous déconnecter (taper \u001B[1mdisconnect\u001B[0m)");
 			System.out.println();
 
 			commande = scanner.nextLine();
 
 			if (commande.equals("consulter")) {
-				
-				continuerMission = true ;
+
+				continuerMission = true;
 				while (continuerMission) {
-					
+
 					System.out.println("\n\nPage des missions :");
-	
+
 					boolean FoundMission = false;
 					try {
-						FoundMission = DBM.printQuery(DBM.missions_attente_reclamant, U.getID()); // aucune dire qu'on en a
+						FoundMission = DBM.printQuery(DBM.missions_attente_reclamant, U.getID()); // aucune dire qu'on
+																									// en a
 																									// pas trouvé
 					} catch (SQLException e) {
 						System.out.println("Affichage des missions impossible");
 						e.printStackTrace();
 					}
-	
+
 					if (!FoundMission) {
 						System.out.println("\n\t--- Aucune mission --- \n");
 					}
 
 					System.out.println("Vous souhaitez.. ");
-					System.out.println("> ajouter un mission (taper ajouter)");
-					if (FoundMission) System.out.println("> effacer une mission (taper effacer)");
-					System.out.println("> ou revenir au menu principal (taper menu)");
+					System.out.println("> ajouter un mission (taper \u001B[1majouter\u001B[0m)");
+					if (FoundMission)
+						System.out.println("> effacer une mission (taper \u001B[1meffacer\u001B[0m)");
+					System.out.println("> ou revenir au menu principal (taper \u001B[1mmenu\u001B[0m)");
 
 					commande = scanner.nextLine();
 
 					if (commande.equals("ajouter")) {
 						System.out.println("Veuillez rentrer les modalités de la mission :");
 
-						System.out.println("Quelle est la nature de la missions ?");
+						System.out.println("> Quelle est la nature de la missions ?");
 						nature = scanner.nextLine();
 
-						System.out.println("Combien de temps dure la mission");
+						System.out.println("> Combien de temps dure la mission");
 						time = scanner.nextLine();
 
-						System.out.println("A partir de quand les mission doit-elle être effectuée ?");
+						System.out.println("> A partir de quand les mission doit-elle être effectuée ?");
 						date = scanner.nextLine();
 
 						while (!isValidDate(date)) {
@@ -324,7 +329,7 @@ public class User_Controller {
 							e.printStackTrace();
 						}
 
-						System.out.println("Veuillez donner un nom à la mission :");
+						System.out.println("> Veuillez donner un nom à la mission :");
 						Name = scanner.nextLine();
 
 						try {
@@ -341,7 +346,8 @@ public class User_Controller {
 
 							missionChoisie = false;
 							while (!missionChoisie) {
-								System.out.println("Laquelle souhaitez-vous supprimer ? (taper son id sinon menu)");
+								System.out.println(
+										"Laquelle souhaitez-vous supprimer ? (taper son \u001B[1mid\u001B[0m sinon \u001B[1mmenu\u001B[0m)");
 
 								id = scanner.nextLine();
 
@@ -389,9 +395,9 @@ public class User_Controller {
 						} else
 							System.out.println("Vous ne pouvez pas effacer de missions");
 					} else if (commande.equals("menu")) {
-						continuerMission= false ;
-					}
-					else System.out.println("Commande inconnue. Veuillez rééssayer") ;
+						continuerMission = false;
+					} else
+						System.out.println("Commande inconnue. Veuillez rééssayer");
 				}
 			} else if (commande.equals("disconnect"))
 
@@ -416,11 +422,12 @@ public class User_Controller {
 						System.out.println("----------------------------------------------------------------- ");
 						System.out.println();
 					} else
-						System.out.println("Réponse non valide, veuillez répondre yes ou no");
+						System.out.println(
+								"Réponse non valide, veuillez répondre \u001B[1myes\u001B[0m ou \u001B[1no\u001B[0m");
 				}
 				continue;
-			}
-			else System.out.println("Commande inconnue. Veuillez rééssayer") ;
+			} else
+				System.out.println("Commande inconnue. Veuillez rééssayer");
 			System.out.println();
 			System.out.println("----------------------------------------------------------------- ");
 			System.out.println("Retour au menu réclamant ... ");
@@ -441,12 +448,11 @@ public class User_Controller {
 		String réponse;
 
 		while (continuerMenu) {
-			System.out.println(
-					"[MENU BENEVOLE] Bienvenue " + U.getFirstName() + U.getLastName() + ", que souhaitez-vous faire ?");
+			System.out.println("\n\n[MENU BENEVOLE] Bienvenue " + U.getFirstName() + " " + U.getLastName()
+					+ ", que souhaitez-vous faire ?");
 			System.out.println("Vous pouvez  : ");
-			System.out.println("> consulter les missions en attente (taper consulter)");
-			System.out.println("> proposer directement des aides spontannées (taper proposer)");
-			System.out.println("> ou vous déconnecter (taper disconnect)");
+			System.out.println("> consulter les missions en attente (taper \u001B[1mconsulter\u001B[0m)");
+			System.out.println("> ou vous déconnecter (taper \u001B[1mdisconnect\u001B[0m)");
 			System.out.println();
 
 			commande = scanner.nextLine();
@@ -454,15 +460,23 @@ public class User_Controller {
 			// CHOISIR MISSION
 			if (commande.equals("consulter")) {
 				System.out.println("Voici les missions en attente :");
+
+				boolean FoundMission = false;
 				try {
-					DBM.printQuery(DBM.missions_attente, "en attente");
+					FoundMission = DBM.printQuery(DBM.missions_attente, "en attente");
 				} catch (SQLException e) {
 					System.out.println("Affichage des missions en attente impossible");
 					e.printStackTrace();
 				}
 				System.out.println();
-				System.out.println(
-						"Souhaitez-vous proposer votre aide pour une des missions ? (taper aider) ou souhaitez-vous revenir au menu ? (taper menu)");
+				if (!FoundMission) {
+					System.out.println("\t--- Aucune mission trouvée ---");
+				}
+				System.out.println("Vous souhaitez :");
+				if (FoundMission)
+					System.out.println("> proposer votre aide pour une des missions ? (taper \u001B[1maider\u001B[0m)");
+				System.out.println("> proposer directement des aides spontannées (taper \u001B[1mproposer\u001B[0m)");
+				System.out.println("> revenir au menu ? (taper \u001B[1mmenu\u001B[0m)");
 
 				commande = scanner.nextLine();
 
@@ -470,7 +484,7 @@ public class User_Controller {
 					missionChoisie = false;
 					while (!missionChoisie) {
 						System.out.println(
-								"Veuillez choisir la mission sur laquelle vous souhaitez vous positionner (taper son id) ou revenir au menu principal (taper menu)");
+								"Veuillez choisir la mission sur laquelle vous souhaitez vous positionner (taper son \u001B[1mid\u001B[0m) ou revenir au menu principal (taper \u001B[1mmenu\u001B[0m)");
 
 						id = scanner.nextLine();
 						try {
@@ -499,7 +513,8 @@ public class User_Controller {
 									réponseValide = true;
 									;
 								} else
-									System.out.println("Réponse non valide, veuillez répondre yes ou no");
+									System.out.println(
+											"Réponse non valide, veuillez répondre \u001B[1myes\u001B[0m ou \u001B[1mno\u001B[0m");
 							} else if (id.equals("menu")) {
 								missionChoisie = true;
 							} else {
@@ -512,13 +527,11 @@ public class User_Controller {
 						}
 					}
 				}
-			}
 
-			// PROPOSER MISSION
-			else if (commande.equals("proposer")) {
-				System.out.println("Vous avez choisi de proposer une aide. (pas encore implémentée)");
-				// ...
-				continue;
+				else if (commande.equals("proposer")) {
+					System.out.println("Vous avez choisi de proposer une aide. (pas encore implémentée)");
+					// ...
+				}
 			} else if (commande.equals("disconnect")) {
 
 				réponseValide = false;
@@ -536,7 +549,8 @@ public class User_Controller {
 					} else if (réponse.equals("no")) {
 						réponseValide = true;
 					} else
-						System.out.println("Réponse non valide, veuillez répondre yes ou no");
+						System.out.println(
+								"Réponse non valide, veuillez répondre \u001B[1myes\u001B[0m ou \u001B[1mno\u001B[0m");
 				}
 				continue;
 			} else {

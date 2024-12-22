@@ -21,14 +21,14 @@ public class Main {
         try {
             System.out.println("Connexion à la base de données...");
             DBM.Connection(); 
-        	try {
+        	/*try {
     			DBM.removeTable("Missions") ;
     			DBM.removeTable("Users") ;
     		} catch (SQLException e) {
     			System.out.println("Impossible de supprimer les tables") ;
     			e.printStackTrace();
     		
-    		}
+    		}*/
             System.out.println("Lancement du menu utilisateur...");
             UC.menu(DBM); 
         } catch (Exception e) {
